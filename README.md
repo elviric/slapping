@@ -1,3 +1,3 @@
 # Slapping
 
-## This is next site to get started used yarn install && yarn dev
+### This is next site to get started use yarn install && yarn dev
