@@ -1,116 +1,231 @@
-.container {
-  padding: 0 2rem;
+.main {
+  /* background-image: url("../public/assets/images/bodyBG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background: url("../public/assets/images/bodyBG.png") no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  padding: 39px 33px;
 }
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navItem h1 {
+  font-family: "Aldrich", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 35px;
+  color: #ffffff;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.centerData {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 10%;
 }
 
-.footer {
+.claimBtn {
+  margin-top: 113px;
+}
+
+.claimBtn button {
+  background: linear-gradient(
+    90.71deg,
+    rgba(115, 224, 169, 0.5) 0%,
+    rgba(91, 104, 223, 0.5) 100%
+  );
+  border-radius: 90px;
+  border: none;
+  padding: 18px 41px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffffff;
+  font-family: "Aldrich", sans-serif;
+  cursor: pointer;
+  margin-bottom: 145px;
+}
+
+.TokenomicData {
+  font-family: "Aldrich", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 42px;
+  color: #ffffff;
+  width: 1109px;
+  margin-top: -50px;
+}
+
+/* Card CSS */
+
+.card {
+  position: relative;
+  width: 408px;
+  height: 668px;
+  padding: 14px 21px;
+  margin-top: 45px;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 35px;
+  padding: 2px;
+  background: linear-gradient(90deg, #73e0a9, #5b68df);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.imageCard {
+  position: relative;
+  width: 364px;
+  height: 365px;
+  background-color: gray;
+  border-radius: 35px;
+  display: block;
+  margin: 0 auto;
+}
+
+.imageCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 35px;
+  padding: 0.8px;
+  background: linear-gradient(90deg, #73e0a9, #5b68df);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.metaMaskDiv {
   display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  margin: 18px 0px 40px;
+  cursor: pointer;
 }
 
-.footer a {
+.metaMaskDiv h2 {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 16px;
+  color: #fdfcfc;
+  margin-left: 15px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.cardDetails {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+.cardDetails h2 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  color: #fdfcfc;
+  margin: 0px;
+}
+
+.cardDetails h3 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fdfcfc;
+  margin: 0px;
+}
+
+.learnMoreDiv {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-grow: 1;
+  cursor: pointer;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.learnMoreDiv h6 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 0.05em;
+  color: #777f84;
+  cursor: pointer;
+  z-index: 1;
+  margin-right: 12px;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.connectedAddress {
+  margin-top: 12px;
 }
 
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
+.connectedAddress h1 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  color: #fdfcfc;
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
+.address {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+  align-items: center;
+  margin-bottom: 66px;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+.address h2 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fdfcfc;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.avatar {
+  width: 31px;
+  height: 31px;
+  background: linear-gradient(
+    151.74deg,
+    #e04949 17.48%,
+    rgba(34, 87, 225, 0) 125.65%
+  );
+  border-radius: 50%;
+  margin-right: 12px;
 }

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import {ethers} from "ethers";
-import Web3Modal from "web3modal"
-import {ABI,contract,signs} from "../public/contract"
-
-
-
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import { ABI, contract, signs } from "../public/contract";
+import slapIcon from "../public/assets/images/slapLogo.png";
+import metmaskIcon from "../public/assets/images/MetamaskIcon.png";
+import RedArrow from "../public/assets/images/RedArrow.png";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [state, setState] = useState();
-  const [assign,setAssign] = useState();
+  const [assign, setAssign] = useState();
+  const [showIcon, setShowIcon] = useState(true);
+  const [showToken, setShowToken] = useState(false);
+
   async function init() {
     console.log("starting up");
     //console.log("WalletConnectProvider is", WalletConnectProvider);
@@ -32,10 +36,10 @@ export default function Home() {
     const provider = await web3Modal.connect();
     //console.log(provider);
 
-    const web3 =  new ethers.providers.Web3Provider(provider);
-    const signer = web3.getSigner()
-    console.log(signer)
-    
+    const web3 = new ethers.providers.Web3Provider(provider);
+    const signer = web3.getSigner();
+    console.log(signer);
+
     const address = await signer.getAddress();
 
     const networkId = await web3.getNetwork();
@@ -61,7 +65,7 @@ export default function Home() {
       bal,
       web3Modal,
       networkId,
-      signer
+      signer,
     });
     // window.provider = provider;
     await subscribeProvider(provider);
@@ -118,28 +122,28 @@ export default function Home() {
     }, 1);
   };
 
-  const claim = async () =>{
-  if(state !== undefined){
-  const metaDAO = new ethers.Contract(contract, ABI, state.web3);
-  const conSigner = metaDAO.connect(state.signer);
-  console.log(assign.amt,assign.sign);
-  conSigner.claim(assign.amt,assign.sign);
-  //console.log(await metaDAO.name());}
-  }
-  }
-const checkAddrExist =(a)=>{
-  let s =  signs.filter(stu => stu.addr === a); 
-  setAssign(s[0])
-}
+  const claim = async () => {
+    if (state !== undefined) {
+      const metaDAO = new ethers.Contract(contract, ABI, state.web3);
+      const conSigner = metaDAO.connect(state.signer);
+      console.log(assign.amt, assign.sign);
+      conSigner.claim(assign.amt, assign.sign);
+      //console.log(await metaDAO.name());}
+    }
+  };
+  const checkAddrExist = (a) => {
+    let s = signs.filter((stu) => stu.addr === a);
+    setAssign(s[0]);
+  };
 
-useEffect(()=>{
-  if(state !==undefined){
-    checkAddrExist(state.address);
-  }
-})
+  useEffect(() => {
+    if (state !== undefined) {
+      checkAddrExist(state.address);
+    }
+  });
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Slapping Airdrop | Demo</title>
         <meta name="description" content="Claim MetaDAO airdrops" />
@@ -147,46 +151,99 @@ useEffect(()=>{
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-         Slap Airdrop DEMO
-        </h1>
-        <div className={styles.grid}>
-          
-         
-        </div>
+        <nav className={styles.navbar}>
+          <div onClick={() => setShowIcon(true)} className={styles.navItem}>
+            <h1>Slaptoken</h1>
+          </div>
 
+          <div onClick={() => setShowIcon(false)} className={styles.navItem}>
+            <h1>Tokenomics</h1>
+          </div>
+        </nav>
 
-        <div className={styles.grid}>
-           {state?<>
-           
-            <div>Connected to {state.address}</div>
-            {assign?
-            <div>
-              <button onClick={claim}>Claim Airdrop</button>
-            </div>:<>
+        <div className={styles.centerData}>
+          {showIcon === true ? (
+            <Image src={slapIcon} alt="SlapIcon" width={175} height={175} />
+          ) : (
+            <p className={styles.TokenomicData}>
+              Slap Token is a pure shit(e) coin inspired by the highly meme
+              worthy Will Smith & Chris Rock Oscar Slap gate. The token will
+              have a total supply of one billion with 50 % of the supply
+              available to claim for holders of BAYC, MAYC, Punks, Gutter Cat
+              Gang, Cryptoadz, Azuki, Doodles, Cyber Kongs, Vee Friends & World
+              of Women/World of Women Galaxy NFTs. 10 % will be set aside for
+              team, 20 % for staking rewards & an additional 20 % for LP
+              provision. There will be no utility of the tokens unless the
+              community of holders decide to make something of the same, no
+              discord or telegram channels or any other form of shameless
+              shilling or pumping & dumping. This is a social experiment by the
+              team about the valuation & reach of a meme.
+            </p>
+          )}
 
-            </>}
+          {showToken === false ? (
+            <div className={styles.claimBtn}>
+              <button onClick={() => setShowToken(true)}>Claim Token</button>
+            </div>
+          ) : null}
 
-           </>:<>
+          {showToken && (
+            <div className={styles.card}>
+              <div className={styles.imageCard}></div>
 
-          <button onClick={onConnect}>connect wallet</button>
-          </>}
-         
+              {state ? (
+                <>
+                  <div className={styles.connectedAddress}>
+                    <div className={styles.address}>
+                      <div className={styles.avatar} />
+                      <h2>
+                        {state
+                          ? state.address.substring(0, 5) +
+                            "..." +
+                            state.address.substr(-3)
+                          : "0xABcD...xYZ"}
+                      </h2>
+                    </div>
+                    <h1>You claimed xxxx Slapcoins</h1>
+                  </div>
+                  {assign ? (
+                    <div>
+                      <button onClick={claim}>Claim Airdrop</button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div onClick={onConnect} className={styles.metaMaskDiv}>
+                    <Image
+                      src={metmaskIcon}
+                      alt="Metamask"
+                      width={68}
+                      height={63}
+                    />
+                    <h2>Connect Metamask</h2>
+                  </div>
+
+                  <div className={styles.cardDetails}>
+                    <h2>New to Ethereum?</h2>
+                    <h3>
+                      Balancer isa DeFi app on Ethereum. To invest trade here,
+                      you’llfirst need to set up an ethereum Wallet.{" "}
+                    </h3>
+
+                    <div className={styles.learnMoreDiv}>
+                      <h6>Learn more</h6>
+                      <Image src={RedArrow} width={10} height={10} />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
