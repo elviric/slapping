@@ -26,11 +26,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
+  /* margin-top: 10%; */
 }
 
 .claimBtn {
   margin-top: 113px;
+  animation: bounce;
+  animation-duration: 2s;
 }
 
 .claimBtn button {

@@ -8,13 +8,14 @@ import { ABI, contract, signs } from "../public/contract";
 import slapIcon from "../public/assets/images/slapLogo.png";
 import metmaskIcon from "../public/assets/images/MetamaskIcon.png";
 import RedArrow from "../public/assets/images/RedArrow.png";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [state, setState] = useState();
   const [assign, setAssign] = useState();
   const [showIcon, setShowIcon] = useState(true);
   const [showToken, setShowToken] = useState(false);
+  // const [selectedTab, setSelectedTab] = useState([slaptoken, tokenomics]);
 
   async function init() {
     console.log("starting up");
@@ -152,97 +153,165 @@ export default function Home() {
 
       <main className={styles.main}>
         <nav className={styles.navbar}>
-          <div onClick={() => setShowIcon(true)} className={styles.navItem}>
+          <div
+            onClick={() => {
+              setShowIcon(true);
+              setShowToken(false);
+            }}
+            className={styles.navItem}
+          >
             <h1>Slaptoken</h1>
           </div>
 
-          <div onClick={() => setShowIcon(false)} className={styles.navItem}>
+          <div
+            onClick={() => {
+              setShowIcon(false);
+              setShowToken(false);
+            }}
+            className={styles.navItem}
+          >
             <h1>Tokenomics</h1>
           </div>
         </nav>
 
-        <div className={styles.centerData}>
-          {showIcon === true ? (
-            <Image src={slapIcon} alt="SlapIcon" width={175} height={175} />
-          ) : (
-            <p className={styles.TokenomicData}>
-              Slap Token is a pure shit(e) coin inspired by the highly meme
-              worthy Will Smith & Chris Rock Oscar Slap gate. The token will
-              have a total supply of one billion with 50 % of the supply
-              available to claim for holders of BAYC, MAYC, Punks, Gutter Cat
-              Gang, Cryptoadz, Azuki, Doodles, Cyber Kongs, Vee Friends & World
-              of Women/World of Women Galaxy NFTs. 10 % will be set aside for
-              team, 20 % for staking rewards & an additional 20 % for LP
-              provision. There will be no utility of the tokens unless the
-              community of holders decide to make something of the same, no
-              discord or telegram channels or any other form of shameless
-              shilling or pumping & dumping. This is a social experiment by the
-              team about the valuation & reach of a meme.
-            </p>
-          )}
-
-          {showToken === false ? (
-            <div className={styles.claimBtn}>
-              <button onClick={() => setShowToken(true)}>Claim Token</button>
-            </div>
-          ) : null}
-
-          {showToken && (
-            <div className={styles.card}>
-              <div className={styles.imageCard}></div>
-
-              {state ? (
-                <>
-                  <div className={styles.connectedAddress}>
-                    <div className={styles.address}>
-                      <div className={styles.avatar} />
-                      <h2>
-                        {state
-                          ? state.address.substring(0, 5) +
-                            "..." +
-                            state.address.substr(-3)
-                          : "0xABcD...xYZ"}
-                      </h2>
-                    </div>
-                    <h1>You claimed xxxx Slapcoins</h1>
-                  </div>
-                  {assign ? (
-                    <div>
-                      <button onClick={claim}>Claim Airdrop</button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div onClick={onConnect} className={styles.metaMaskDiv}>
+        <AnimatePresence exitBeforeEnter>
+          <div className={styles.centerData}>
+            {showToken === false ? (
+              <>
+                {showIcon === true ? (
+                  <div style={{ marginTop: "10%" }}>
                     <Image
-                      src={metmaskIcon}
-                      alt="Metamask"
-                      width={68}
-                      height={63}
+                      src={slapIcon}
+                      alt="SlapIcon"
+                      width={175}
+                      height={175}
                     />
-                    <h2>Connect Metamask</h2>
+                    <motion.div
+                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, y: 100 }}
+                      exit={{ opacity: 0, y: -100 }}
+                      transition={{ duration: 2 }}
+                      className={styles.claimBtn}
+                    >
+                      <button onClick={() => setShowToken(true)}>
+                        Claim Token
+                      </button>
+                    </motion.div>
                   </div>
-
-                  <div className={styles.cardDetails}>
-                    <h2>New to Ethereum?</h2>
-                    <h3>
-                      Balancer isa DeFi app on Ethereum. To invest trade here,
-                      you’llfirst need to set up an ethereum Wallet.{" "}
-                    </h3>
-
-                    <div className={styles.learnMoreDiv}>
-                      <h6>Learn more</h6>
-                      <Image src={RedArrow} width={10} height={10} />
-                    </div>
+                ) : (
+                  <div
+                    className={styles.centerData}
+                    style={{ marginTop: "10%" }}
+                  >
+                    <p className={styles.TokenomicData}>
+                      Slap Token is a pure shit(e) coin inspired by the highly
+                      meme worthy Will Smith & Chris Rock Oscar Slap gate. The
+                      token will have a total supply of one billion with 50 % of
+                      the supply available to claim for holders of BAYC, MAYC,
+                      Punks, Gutter Cat Gang, Cryptoadz, Azuki, Doodles, Cyber
+                      Kongs, Vee Friends & World of Women/World of Women Galaxy
+                      NFTs. 10 % will be set aside for team, 20 % for staking
+                      rewards & an additional 20 % for LP provision. There will
+                      be no utility of the tokens unless the community of
+                      holders decide to make something of the same, no discord
+                      or telegram channels or any other form of shameless
+                      shilling or pumping & dumping. This is a social experiment
+                      by the team about the valuation & reach of a meme.
+                    </p>
+                    <motion.div
+                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, y: 100 }}
+                      exit={{ opacity: 0, y: -100 }}
+                      transition={{ duration: 2 }}
+                      className={styles.claimBtn}
+                    >
+                      <button onClick={() => setShowToken(true)}>
+                        Claim Token
+                      </button>
+                    </motion.div>
                   </div>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+                )}
+              </>
+            ) : null}
+
+            {showToken && (
+              <>
+                <motion.div
+                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 100 }}
+                  exit={{ opacity: 0, y: -100 }}
+                  transition={{ duration: 2 }}
+                >
+                  <Image
+                    src={slapIcon}
+                    alt="SlapIcon"
+                    width={175}
+                    height={175}
+                  />
+                </motion.div>
+
+                <div className={styles.card}>
+                  <div className={styles.imageCard}></div>
+
+                  {state ? (
+                    <motion.div
+                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, y: 0 }}
+                      exit={{ opacity: 0, y: 0 }}
+                      transition={{ duration: 2 }}
+                    >
+                      <div className={styles.connectedAddress}>
+                        <div className={styles.address}>
+                          <div className={styles.avatar} />
+                          <h2>
+                            {state
+                              ? state.address.substring(0, 5) +
+                                "..." +
+                                state.address.substr(-3)
+                              : "0xABcD...xYZ"}
+                          </h2>
+                        </div>
+                        <h1>You claimed xxxx Slapcoins</h1>
+                      </div>
+                      {assign ? (
+                        <div>
+                          <button onClick={claim}>Claim Airdrop</button>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </motion.div>
+                  ) : (
+                    <>
+                      <div onClick={onConnect} className={styles.metaMaskDiv}>
+                        <Image
+                          src={metmaskIcon}
+                          alt="Metamask"
+                          width={68}
+                          height={63}
+                        />
+                        <h2>Connect Metamask</h2>
+                      </div>
+
+                      <div className={styles.cardDetails}>
+                        <h2>New to Ethereum?</h2>
+                        <h3>
+                          Balancer isa DeFi app on Ethereum. To invest trade
+                          here, you’llfirst need to set up an ethereum Wallet.{" "}
+                        </h3>
+
+                        <div className={styles.learnMoreDiv}>
+                          <h6>Learn more</h6>
+                          <Image src={RedArrow} width={10} height={10} />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </AnimatePresence>
       </main>
     </div>
   );
