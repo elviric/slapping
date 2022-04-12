@@ -128,7 +128,7 @@ export default function Home() {
       const metaDAO = new ethers.Contract(contract, ABI, state.web3);
       const conSigner = metaDAO.connect(state.signer);
       console.log(assign.amt, assign.sign);
-      conSigner.claim(assign.amt, assign.sign);
+      conSigner.claim(assign.amt.toString(), assign.sign);
       //console.log(await metaDAO.name());}
     }
   };
@@ -283,8 +283,8 @@ export default function Home() {
                         <h1>You claimed xxxx Slapcoins</h1>
                       </div>
                       {assign ? (
-                        <div>
-                          <button onClick={claim}>Claim Airdrop</button>
+                        <div className={styles.centerData} >
+                          <button className={styles.claimBtn} onClick={claim}>Claim Airdrop</button>
                         </div>
                       ) : (
                         <></>
