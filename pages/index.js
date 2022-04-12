@@ -240,13 +240,13 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   initial={{ opacity: 0, y: 100 }}
                   exit={{ opacity: 0, y: -100 }}
-                  transition={{ duration: 2 }}
+                  transition={{ duration: 0.5 }}
                 >
                   <Image
                     src={slapIcon}
                     alt="SlapIcon"
-                    width={175}
-                    height={175}
+                    width={113}
+                    height={113}
                   />
                 </motion.div>
 
