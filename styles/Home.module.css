@@ -35,7 +35,15 @@
   animation-duration: 2s;
 }
 
-.claimBtn button {
+.claimAirdropBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.claimBtn button,
+.claimAirdropBtn button {
   background: linear-gradient(
     90.71deg,
     rgba(115, 224, 169, 0.5) 0%,
@@ -198,7 +206,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 66px;
+  margin-bottom: 25px;
 }
 
 .address h2 {

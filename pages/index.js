@@ -133,24 +133,26 @@ export default function Home() {
     }
   };
   const checkAddrExist = (a) => {
- //   let s = signs.filter((stu) => stu.addr === a);
- let data = {address:'0x54be3a794282c030b15e43ae2bb182e14c409c5e'}
- fetch("/api/fetchData", {
-  method: "POST",
-  headers: {'Content-Type': 'application/json'}, 
-  body: JSON.stringify(data)
-}).then(res => res.json()).then(r=>{
-  console.log("Request complete! response:", r);
-  setAssign(r);
-});
-   // setAssign(s[0]);
+    //   let s = signs.filter((stu) => stu.addr === a);
+    let data = { address: "0x54be3a794282c030b15e43ae2bb182e14c409c5e" };
+    fetch("/api/fetchData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((r) => {
+        console.log("Request complete! response:", r);
+        setAssign(r);
+      });
+    // setAssign(s[0]);
   };
 
   useEffect(() => {
     if (state !== undefined) {
       checkAddrExist(state.address);
     }
-  },[state]);
+  }, [state]);
 
   return (
     <div>
@@ -280,15 +282,15 @@ export default function Home() {
                               : "0xABcD...xYZ"}
                           </h2>
                         </div>
-                        <h1>You claimed xxxx Slapcoins</h1>
+
+                        {assign ? (
+                          <h1>You claimed xxxx Slapcoins</h1>
+                        ) : (
+                          <div className={styles.claimAirdropBtn}>
+                            <button onClick={claim}>Claim Airdrop</button>
+                          </div>
+                        )}
                       </div>
-                      {assign ? (
-                        <div className={styles.centerData} >
-                          <button className={styles.claimBtn} onClick={claim}>Claim Airdrop</button>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
                     </motion.div>
                   ) : (
                     <>
