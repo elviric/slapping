@@ -134,7 +134,7 @@ export default function Home() {
   };
   const checkAddrExist = (a) => {
  //   let s = signs.filter((stu) => stu.addr === a);
- let data = {address:'0x54be3a794282c030b15e43ae2bb182e14c409c5e'}
+ let data = {address:a}
  fetch("/api/fetchData", {
   method: "POST",
   headers: {'Content-Type': 'application/json'}, 
@@ -151,6 +151,12 @@ export default function Home() {
       checkAddrExist(state.address);
     }
   },[state]);
+  useEffect(() => {
+    if (assign !== undefined) {
+      //checkAddrExist(state.address);
+      claim();
+    }
+  },[assign]);
 
   return (
     <div>
